@@ -1,0 +1,301 @@
+    {% load staticfiles %}
+    <!DOCTYPE html>
+    <html lang="zh-CN">
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <title>EasyHome Dashboard</title>
+        <!-- Bootstrap core CSS -->
+        <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+      </head>
+
+      <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">EasyHome</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <!-- <li><a href="#">Dashboard</a></li> -->
+                <!-- <li><a href="#">Settings</a></li> -->
+                <li id=welcomeuser customerid="{{ username }}"><a href="#">你好,{{ username }}</a></li>
+                  <li><a href="/welcome/logout/" >退出登陆</a></li>
+                <!-- <li><a href="#">Help</a></li> -->
+              </ul>
+              <!-- <form class="navbar-form navbar-right"> -->
+                <!-- <input type="text" class="form-control" placeholder="Search..."> -->
+              <!-- </form> -->
+            </div>
+          </div>
+        </nav>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <li id="item_start" class="active"><a href="#">总览<span class="sr-only">(current)</span></a></li>
+                <li id="item_booking"><a href="#">预定酒店</a></li>
+                <li id="item_management"><a href="#">预定管理</a></li>
+              </ul>
+            </div>
+              <div id="welcome" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h1 class="page-header">欢迎光临易家联合平台</h1>
+              <h3 class="sub-header">希望我们能给你的旅程一个五星级的体验</h3>
+
+            </div>
+              <div hidden="hidden" id="hotelbooking" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h2 id="hotel-list" class="sub-header">宾馆列表</h2>
+              <div class="table-responsive">
+                <table  class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>宾馆名称</th>
+                      <th>所在市</th>
+                      <th>所在区</th>
+                      <th>详细地址</th>
+                        <th>了解</th>
+                    </tr>
+                  </thead>
+                    <tbody id="createhoteltable">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+              <div hidden="hidden" id="bookingmanagement" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h2 id="booking-list" class="sub-header">我的预定</h2>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>编号</th>
+                      <th>宾馆名称</th>
+                      <th>房型名称</th>
+                      <th>预定时间</th>
+                      <th>预定数量</th>
+                        <th>取消</th>
+                    </tr>
+                  </thead>
+                  <tbody id="createbookinglist"></tbody>
+                </table>
+              </div>
+            </div>
+              <div  hidden="hidden" id="hotelpage" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h2 id='hotel-name' class="sub-header"></h2>
+                  <p id="hotel-details"></p>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>房型种类</th>
+                      <th>介绍</th>
+                      <th>剩余数</th>
+                        <th>操作</th>
+                    </tr>
+                  </thead>
+                    <tbody id="createroomtypetable">
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        {# 左侧菜单栏的选择 #}
+        <script type="text/javascript" >
+            $(document).ready(function (){
+                $('li#item_booking').click(function () {
+                    $('.active').removeClass('active');
+                    $('li#item_booking').addClass('active');
+                    $('div#welcome').hide();
+                    $('div#hotelbooking').show();
+                    $('div#bookingmanagement').hide()
+                    $('div#hotelpage').hide()
+                })
+            })
+        </script>
+        <script type="text/javascript" >
+            $(document).ready(function (){
+                $('li#item_management').click(function () {
+                    $('.active').removeClass('active');
+                    $('li#item_management').addClass('active');
+                    $('div#welcome').hide();
+                    $('div#hotelbooking').hide();
+                    $('div#bookingmanagement').show()
+                    $('div#hotelpage').hide()
+                })
+            })
+        </script>
+        <script type="text/javascript" >
+            $(document).ready(function (){
+                $('li#item_start').click(function () {
+                    $('.active').removeClass('active');
+                    $('li#item_start').addClass('active');
+                    $('div#welcome').show();
+                    $('div#hotelbooking').hide();
+                    $('div#bookingmanagement').hide()
+                    $('div#hotelpage').hide()
+                })
+            })
+        </script>
+        {# 右侧页面的显示  点击标题显示表格#}
+        <script type="text/javascript">
+
+
+            $('h2#hotel-list').click(function () {
+                    $.get('/api/hotel/',function (data,status) {
+                            displayHotelInfo(data)
+                        }
+                    )
+                }
+            )
+            $('h2#booking-list').click(function () {
+                    $.get('/api/bookingRoom/',function (data,status) {
+                            displayBookingList(data)
+                    })
+            })
+
+            function displayHotelInfo(data) {
+                //清空之前的内容
+                var obj=document.getElementById("createhoteltable")
+                obj.innerHTML=''
+                for (var i = 0; i < data.length; i++) {
+                    var tr = $('<tr></tr>');
+                    tr.appendTo($("#createhoteltable"))
+                    var td1 = $('<td>' + data[i].hotelName + '</td>')
+                    td1.appendTo(tr)
+                    var td2 = $('<td>' + data[i].city + '</td>')
+                    td2.appendTo(tr)
+                    var td3 = $('<td>' + data[i].district + '</td>')
+                    td3.appendTo(tr)
+                    var td4 = $('<td>' + data[i].detailedAddress + '</td>')
+                    td4.appendTo(tr)
+                    var td5 = $('<td><botton id=hotelinfobutton'+i+' onclick="getHotelInfo(this)" class=" hotelbuttonclass btn btn-info " >了解</botton></td>')
+                    td5.appendTo(tr)
+                }
+            }
+            function displayBookingList(data) {
+                //预定表
+                var obj=document.getElementById("createbookinglist");
+                obj.innerHTML=''
+                for(var i = 0; i <data.length; i++)
+                {
+
+                    var tr = $('<tr></tr>');
+                    tr.appendTo($("#createbookinglist"))
+                    var td1 = $('<td>' + (i+1) + '</td>')
+                    td1.appendTo(tr)
+                    var td2 = $('<td>' + data[i].hotelName+ '</td>')
+                    td2.appendTo(tr)
+                    var td3 = $('<td>' + data[i].TypeName + '</td>')
+                    td3.appendTo(tr)
+                    var td4 = $('<td>' + data[i].bookingTime + '</td>')
+                    td4.appendTo(tr)
+                    var td5 = $('<td>' + data[i].bookingNum + '</td>')
+                    td5.appendTo(tr)
+                    var td6 = $('<td><botton id=bookingcancelbutton'+i+'  class=" hotelbuttonclass btn btn-warning " >取消</botton></td>')
+                    td6.appendTo(tr)
+                }
+            }
+
+            function displayHotelDetail(data) {
+                $('#hotel-name').text(data['hotelName']);
+                $('#hotel-details').text(data['hotelIntro'])
+            }
+
+            function displayRoomTypeInfo(data) {
+                var obj=document.getElementById("createroomtypetable")
+                obj.innerHTML=''
+                for (var i = 0; i < data.length; i++)
+                {
+                    var tr = $('<tr></tr>');
+                    tr.appendTo($("#createroomtypetable"));
+                    var td1 = $('<td typeID='+data[i].typeID+'>' + data[i].typeName+ '</td>');
+                    td1.appendTo(tr)
+                    var td2 = $('<td>' + data[i].description + '</td>');
+                    td2.appendTo(tr)
+                    var td3 = $('<td>' + data[i].remainingNumble + '</td>');
+                    td3.appendTo(tr)
+                    var td4 = $('<td><botton onclick="bookingRoom(this)" id=roombookingbutton'+i+' class=" hotelbuttonclass btn btn-primary " >预定</botton></td>')
+                    if(data[i].remainingNumble==0)
+                        td4=$('<td><botton id=roombookingbutton'+i+' class="  btn btn-warning " >无剩余房间</botton></td>')
+                    td4.appendTo(tr)
+                }
+            }
+            function bookingRoom(e) {
+                var hotel = document.getElementById('hotel-name').textContent;
+                var cusername = document.getElementById('welcomeuser').getAttribute('customerid')
+                var tn = e.parentNode.parentNode.firstChild.getAttribute("typeID");
+                //alert(hotel)
+                //alert(tn)
+                var book_url = '/api/bookingRoom/';
+                var data = {
+                    "hotelName": hotel,
+                    "TypeName": tn,
+                    "bookingNum": 1,
+                    "customerUser": 4,
+                }
+                $.post(book_url, data, function (res) {
+                    //do something
+                })
+
+                //请求更新表格
+                var roomType_url = ('/api2/customerRoomType/hotel=' + hotel + '/');
+                $.get(roomType_url, function (data, status) {
+                    displayRoomTypeInfo(data)
+                })
+            }
+
+            function getHotelInfo(e) {
+                var hotel = e.parentNode.parentNode.firstChild.textContent;
+                //视觉变化
+                $('div#welcome').hide()
+                $('div#hotelbooking').hide();
+                $('div#bookingmanagement').hide()
+                $('div#hotelpage').show()
+                //实质变化
+                var hotel_url=('/api/hotel/' + hotel + '/')
+                var roomType_url=('/api2/customerRoomType/hotel=' + hotel + '/')
+                //alert(hotel_url)
+                //alert(roomType_url)
+                //alert(hotel_url)
+                $.get(hotel_url, function(data,status){
+                    displayHotelDetail(data)
+                })
+                $.get(roomType_url, function(data,status){
+                    displayRoomTypeInfo(data)
+                })
+            }
+
+        </script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>>
+        <script src="{% static "js/bootstrap.min.js" %}"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="../../assets/js/vendor/holder.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+      </body>
+    </html>

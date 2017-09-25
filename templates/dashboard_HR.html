@@ -1,0 +1,221 @@
+    {% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>EasyHome Dashboard</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">EasyHome</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li><a href="#">Dashboard</a></li> -->
+            <!-- <li><a href="#">Settings</a></li> -->
+            <li><a href="#">你好,{{ username }}</a></li>
+              <li><a href="/welcome/logout/" >退出登陆</a></li>
+            <!-- <li><a href="#">Help</a></li> -->
+          </ul>
+          <!-- <form class="navbar-form navbar-right"> -->
+            <!-- <input type="text" class="form-control" placeholder="Search..."> -->
+          <!-- </form> -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li id="item_start" class="active"><a href="#">总览<span class="sr-only">(current)</span></a></li>
+              <li id="item_hotelinfo"><a href="#">预定信息</a></li>
+            <li id="item_roommanagement"><a href="#">房间信息</a></li>
+            <li id="item_roomtype"><a href="#">入住管理</a></li>
+          </ul>
+        </div>
+          <div id="welcome" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">欢迎使用易家联合平台宾馆前台管理系统</h1>
+          <h3 class="sub-header">为您的工作创造便利是我们的荣幸</h3>
+
+        </div>
+          <div hidden="hidden" id="hotelinfomanagement" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 id="hotel-list" class="sub-header">预定信息查询</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th>预定时间</th>
+                  <th>预定用户</th>
+                  <th>预定房型</th>
+                    <th>预定数量</th>
+                </tr>
+              </thead>
+                <tbody>
+                <tr>
+                    <td>2017-9-21 20:17:59</td>
+                    <td>惠波</td>
+                    <td>豪华大床房</td>
+                    <td>2</td>
+                </tr>
+                </tbody>
+                <tr>
+
+                </tr>
+            </table>
+          </div>
+        </div>
+          <div hidden="hidden" id="roommanagement" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="sub-header">房间信息查询</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>房号</th>
+                  <th>房间状态</th>
+                  <th>更改</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>701</td>
+                  <td>空闲</td>
+                  <td><botton class="btn btn-info">安排入住</botton></td>
+                </tr>
+              <tr>
+                  <td>703</td>
+                  <td>使用中</td>
+                  <td><botton class="btn btn-warning">请勿打扰</botton></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+          <div hidden="hidden" id="roomtype" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="sub-header">入住信息管理</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>房间号</th>
+                  <th>姓名</th>
+                    <th>手机号</th>
+                  <th>入住时间</th>
+                    <th>房间价格</th>
+                  <th>房间押金</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td>701</td>
+                <td>佘奇晋</td>
+                <td>17864154680</td>
+                  <td>2017-9-20 16:28:37</td>
+                <td>536</td>
+                  <td>218</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    {# 左侧菜单栏的选择 #}
+    <script type="text/javascript" >
+        $(document).ready(function (){
+            $('li#item_start').click(
+                function () {
+                    $('.active').removeClass('active')
+                    $('li#item_start').addClass('active')
+                    $('div#welcome').show()
+                    $('div#hotelinfomanagement').hide()
+                    $('div#roommanagement').hide()
+                    $('div#roomtype').hide()
+                }
+            )
+        })
+    </script>
+     <script type="text/javascript" >
+        $(document).ready(function (){
+            $('li#item_hotelinfo').click(
+                function () {
+                    $('.active').removeClass('active')
+                    $('li#item_hotelinfo').addClass('active')
+                    $('div#welcome').hide()
+                    $('div#hotelinfomanagement').show()
+                    $('div#roommanagement').hide()
+                    $('div#roomtype').hide()
+                }
+            )
+        })
+    </script>
+     <script type="text/javascript" >
+        $(document).ready(function (){
+            $('li#item_roommanagement').click(
+                function () {
+                    $('.active').removeClass('active')
+                    $('li#item_roommanagement').addClass('active')
+                    $('div#welcome').hide()
+                    $('div#hotelinfomanagement').hide()
+                    $('div#roommanagement').show()
+                    $('div#roomtype').hide()
+                }
+            )
+        })
+    </script>
+     <script type="text/javascript" >
+        $(document).ready(function (){
+            $('li#item_roomtype').click(
+                function () {
+                    $('.active').removeClass('active')
+                    $('li#item_roomtype').addClass('active')
+                    $('div#welcome').hide()
+                    $('div#hotelinfomanagement').hide()
+                    $('div#roommanagement').hide()
+                    $('div#roomtype').show()
+                }
+            )
+        })
+    </script>
+    {# 右侧页面的显示  #}
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script>
+        $(document).ready()
+    </script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
